@@ -45,6 +45,7 @@
       <kbd>L</kbd>
       <span class="sound">tink</span>
     </div>
+
   </div>
 
   <audio data-key="65" src="sounds/clap.wav"></audio>
@@ -58,9 +59,62 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+  // KeyboardEvent事件只是指示用户与键盘上的某个键进行了低级别的交互，而没有为该交互提供上下文意义。
+  // 当需要处理文本输入时，请使用输入事件。
+  // 如果用户使用其他输入文本的方式，例如平板电脑或图形平板电脑上的手写系统，则可能不会触发键盘事件
+  //keycode.info 网站
+
+  //最后可以重构一下代码，把事件处理器函数封装一下，把注册监听器的代码写到下边
+  window.addEventListener("keydown",function (event){
+    // console.log(event.keyCode);
+    //模板字符串：${} 外边用反引号
+    //拿到html元素，一般保存到const中
+    const audio = document.querySelector(`audio[data-key="${event.keyCode}"]`);
+    const keydiv = document.querySelector(`div[data-key="${event.keyCode}"]`);
+
+    //加上中括号输出一个数组
+    // console.log([audio])
+    // console.log([keydiv])
+
+    if (!audio) return;
+    audio.currentTime = 0;
+    audio.play();
+    keydiv.classList.add('playing');
+
+    //做法1 可以达到效果，但这个是异步的，另外时间和css耦合
+    // setTimeout(function (){
+    //   keydiv.classList.remove('playing');
+    // },70)
+
+  //  做法2 监听transitionend 事件，监听到之后 remove playing 样式
+  //  querySelectorAll 返回 nodelist 对象，有属性keys,values,entries, 还可以转为数组用forEach 遍历
+  //  即 Array.from(document.querySelectorAll('.key'))
+    /**直接对nodeList 用forEach是不合理的
+     * 这取决于浏览器，它在 chrome 中受支持，但在其他浏览器中不受支持。
+     * NodeList 在 chrome 中的原型(prototype)中有 forEach，在其他浏览器中没有。
+     * // to check for forEach support
+     * if(NodeList.prototype.forEach)
+     * 在所有浏览器中循环遍历
+     *       NodeList:
+     *       for (var i = 0, l = myNodeList.length; i < l; ++i) {
+     *         var item = myNodeList[i];
+     *       }
+     *       或者您可以简单地将其转换为数组:
+     *       var div_list = document.querySelectorAll('div'); // returns NodeList
+     *       var div_array = Array.prototype.slice.call(div_list); // converts NodeList to Array
+    */
+    const keys = document.querySelectorAll('.key')
+    console.log(keys)
+    keys.forEach(key => {
+      key.addEventListener("transitionend",function (evt){
+        if(evt.propertyName !== 'transform') return;
+        this.classList.remove('playing');
+      })
+    })
+
+  })
 
 </script>
-
 
 </body>
 </html>
