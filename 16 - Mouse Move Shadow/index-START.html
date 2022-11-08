@@ -35,6 +35,33 @@
   </style>
 
 <script>
+  const hero = document.querySelector('.hero');
+  const h1 = document.querySelector('h1');
+  const r = 200;//比例
+
+  function shadow (e) {
+    const {offsetWidth : width,offsetHeight : height } = hero;
+    let {offsetX : x,offsetY : y } = e;
+    // console.log(e.target);
+    //事件目标变成h1时：
+    if (this != e.target) {
+      x = x + e.target.offsetLeft;
+      y = y + e.target.offsetTop;
+    }
+    //x方向的阴影偏移量
+    const xR = Math.round(x/width * r - r/2);
+    const yR = Math.round(y/height * r - r/2);
+
+    //多阴影
+    h1.style.textShadow = `
+    ${xR}px ${yR}px 0 rgba(0, 0, 0, 0.4),
+    ${-xR}px ${-yR}px 0 rgba(240, 130, 90, 0.4),
+    ${-yR}px ${-xR}px 0 rgba(81, 50, 130, 0.4),
+    ${xR}px ${-yR}px 0 rgba(46, 79, 240, 0.4),
+    ${-xR}px ${yR}px 0 rgba(88, 160, 130, 0.4)
+    `
+  }
+  hero.addEventListener('mousemove',shadow)
 </script>
 </body>
 </html>

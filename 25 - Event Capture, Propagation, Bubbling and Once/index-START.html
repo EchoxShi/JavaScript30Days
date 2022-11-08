@@ -43,6 +43,15 @@
 <button></button>
 <script>
 
+  //  mavis ：事件冒泡和捕获：是指事件在元素上被触发得顺序，事件本身并不会传递。
+  //  要想触发一个事件前提是 给这个元素绑定一个事件。比如，如果只给里层的three绑定事件,那无论冒不冒泡都只会在three上触发事件
+
+const three = document.querySelector('.three');
+function log () {
+  console.log(this)
+}
+three.addEventListener('click',log)
+three.addEventListener('click',() => console.log(this))
 </script>
 </body>
 </html>

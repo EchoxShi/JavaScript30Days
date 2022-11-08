@@ -87,9 +87,10 @@
 
     console.clear();
     console.log(wes);
-
+    //还是浅复制，遇到对象只复制引用
     const dev = Object.assign({}, wes);
 
+    //真正的深复制
     const dev2 = JSON.parse(JSON.stringify(wes));
 
 

@@ -30,6 +30,7 @@
       border-bottom: 0;
     }
 
+    /*复选框是选中状态时， 它和文本都加一个删除线*/
     input:checked + p {
       background: #F9F9F9;
       text-decoration: line-through;
@@ -96,6 +97,29 @@
   </div>
 
 <script>
+  const inboxs = document.querySelectorAll('.inbox input[type=checkbox]');
+
+  let startChecked;
+  function handlefun(e) {
+    console.log([this])
+    if(e.shiftKey && this.checked) {//endChecked
+      let isBetween = false;
+      inboxs.forEach(checkbox => {
+        // if (checkbox === startChecked) {
+        //   isBetween = true;
+        // }
+        // if(checkbox === this) {
+        //   isBetween = false;
+        // }
+        if(checkbox ==startChecked || checkbox === this) {
+          isBetween = !isBetween;
+        }
+        if (isBetween) checkbox.checked = true;
+      })
+    }
+    startChecked = this;
+  }
+  inboxs.forEach(inbox => inbox.addEventListener('click',handlefun))
 </script>
 </body>
 </html>

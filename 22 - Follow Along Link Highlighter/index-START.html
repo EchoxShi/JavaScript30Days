@@ -27,6 +27,29 @@
 
   <script>
     // 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀
+    const highlight = document.createElement('span');
+    highlight.classList.add('highlight');
+    document.body.appendChild(highlight);
+
+    const links = document.querySelectorAll('a');
+
+    function fllow () {
+      console.log(this.getBoundingClientRect());
+      const linkRect = this.getBoundingClientRect();
+
+      const linkStyleRect =  {
+        left : linkRect.left + window.scrollX,
+        top : linkRect.top + window.scrollY
+      }
+
+      highlight.style.width = `${linkRect.width}px`;
+      highlight.style.height = `${linkRect.height}px`;
+
+      //top和left是相对于视口的，随着滚动会变，所以需要加上滚动的距离
+      highlight.style.transform = `translate(${linkStyleRect.left}px,${linkStyleRect.top}px)` ;
+    }
+    links.forEach(link => link.addEventListener('mouseenter',fllow));
+
   </script>
 </body>
 </html>

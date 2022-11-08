@@ -7,6 +7,19 @@
 </head>
 <body>
 <script>
+  const secretCode = 'arvin';
+  const press = [];
+  window.addEventListener('keyup',(e) => {
+    press.push(e.key);
+    //原地修改，删除字符串
+    press.splice(-press.length,press.length - secretCode.length);
+    console.log(press);
+    if (press.join('').includes(secretCode)) {
+      console.log('ha ha ');
+      cornify_add();
+    }
+
+  })
 </script>
 </body>
 </html>

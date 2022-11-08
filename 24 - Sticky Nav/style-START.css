@@ -10,6 +10,7 @@ body {
   margin: 0;
 }
 
+
 *, *:before, *:after {
   box-sizing: inherit;
 }
@@ -24,6 +25,8 @@ body {
   transform: scale(0.98);
   transition: transform 0.5s;
 }
+
+
 
 header {
   text-align: center;
@@ -50,6 +53,7 @@ nav {
   z-index: 1;
 }
 
+
 nav ul {
   margin: 0;
   padding:0;
@@ -64,6 +68,7 @@ nav li {
   justify-content: center;
   align-items: center;
 }
+/*----------------------------------------------------------------------------*/
 
 li.logo {
   max-width: 0;
@@ -73,11 +78,34 @@ li.logo {
   font-weight: 600;
   font-size: 30px;
 }
+/*mavis :巧妙的导航吸附效果：
+第一：
+用js给父元素，可以是body元素动态添加类名，这样可以控制所有子元素。
+比如给body 添加.fixed-nav
+在css中写的时候，只需要把  .fixed-nav nav 的样式写出来。
+当有了 .fixed-nav 的时候，和.fixed-nav 相关的子元素的样式就会出来，去掉了就都会去掉。
+
+第二：
+flex布局中 元素设置宽度可能会无效。
+
+设置为width时，width由flex布局自己计算，transform是没有效果的。
+设置为max-width才有过渡效果。
+
+第三：
+想让元素隐藏，设置它的max-width 为0。
+*/
+.fixed-nav nav {
+  position: fixed;
+}
+
+.fixed-nav li.logo {
+  max-width: 500px;
+}
 
 li.logo a {
   color: black;
 }
-
+/*----------------------------------------------------------------------------*/
 nav a {
   text-decoration: none;
   padding: 20px;

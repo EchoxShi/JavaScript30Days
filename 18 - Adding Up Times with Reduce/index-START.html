@@ -182,6 +182,27 @@
     </li>
   </ul>
 <script>
+  const timeNodes = Array.from(document.querySelectorAll('[data-time]'));
+  //总秒数
+  const time = timeNodes
+          .map(timeNode => timeNode.dataset.time)
+          .map(timeString => {
+            const [mins,seconds] = timeString.split(':').map(parseFloat);
+            return mins * 60 + seconds;
+          })
+          .reduce((total,cur) => {
+            return total += cur;
+          },total = 0)
+  console.log(time)
+  let leftSeconds = time;
+  const hours = Math.floor(time / 3600) ;
+  leftSeconds = leftSeconds % 3600;
+  const mins = Math.floor(leftSeconds / 60) ;
+  leftSeconds = leftSeconds % 60;
+
+  console.log(hours,mins,leftSeconds)
+
+
 </script>
 </body>
 </html>

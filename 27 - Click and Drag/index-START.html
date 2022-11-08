@@ -35,6 +35,38 @@
   </div>
 
 <script>
+  const slider = document.querySelector('.items');
+
+  let startX;
+  let isDown = false;
+  let scrollLeft;
+  slider.addEventListener('mousedown',(e) => {
+    isDown = true;
+    slider.classList.add('active');
+
+    startX = e.pageX - slider.offsetLeft;
+    scrollLeft = slider.scrollLeft;
+    console.log(startX);
+
+  })
+  slider.addEventListener('mouseleave',() => {
+    isDown = false;
+    slider.classList.remove('active');
+
+  })
+  slider.addEventListener('mouseup',() => {
+    isDown = false;
+    slider.classList.remove('active');
+
+  })
+  slider.addEventListener('mousemove',(e) => {
+    if (!isDown) return;
+    const x  = e.pageX - slider.offsetLeft;
+    //想划得快点，可以给walk乘以一个倍数。
+    const walk = x - startX; //往右划是正值，往左划是负值
+    slider.scrollLeft = scrollLeft - walk;
+    console.log(walk)
+  })
 </script>
 
   </body>

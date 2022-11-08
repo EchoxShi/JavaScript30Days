@@ -52,15 +52,22 @@
   }
 
   divs.forEach(div => div.addEventListener('click', logText, {
-    capture: false,
-    once: true
+    capture: true,
+    // once: true
   }));
 
   button.addEventListener('click', () => {
     console.log('Click!!!');
   }, {
-    once: true
+    // once: true
   });
+//  mavis :事件冒泡和捕获：是指事件在元素上被触发得顺序，事件本身并不会传递。
+//  第一：要想触发一个事件前提是 给这个元素绑定一个事件。比如，如果只给里层的three绑定事件,那无论冒不冒泡都只会在three上触发事件
+//  第二： 事件的执行， 必须有相应的动作来触发，触发的动作不会传递。
+  //  比如冒泡方式下，点击two,three 就不会被触发。因为没有动作触发它。
+  // 而点击three 的时候，由于two包含three 所以two也被触发
+
+
 
 </script>
 </body>

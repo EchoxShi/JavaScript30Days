@@ -55,6 +55,24 @@
 
 <script>
 
+  const nav = document.querySelector('#main');
+  const navTop = nav.offsetTop;
+
+  function fixNav () {
+    console.log(window.scrollY,navTop);
+    //当把导航条设置成 固定定位时，会脱离文档流，导致突然少了一段距离。所以要把这段距离补回来
+    //nav.offsetHeight 元素的高度
+    if (window.scrollY >= navTop) {
+      document.body.style.paddingTop = nav.offsetHeight + 'px';
+      document.body.classList.add('fixed-nav');
+    } else {
+      document.body.style.paddingTop = 0 + 'px';
+      document.body.classList.remove('fixed-nav');
+    }
+  }
+
+  window.addEventListener('scroll',fixNav);
+
 </script>
 
 </body>

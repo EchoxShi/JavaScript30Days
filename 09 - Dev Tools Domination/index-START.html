@@ -16,31 +16,58 @@
       p.style.color = '#BADA55';
       p.style.fontSize = '50px';
     }
-
+    const p = document.querySelector('p');
     // Regular
-
+    console.log('hello')
     // Interpolated
-
+    console.log('hello my name is %s','mavis');
     // Styled
-
+    console.log('%c 锄禾日当午','font-size: 32px;color:red')
     // warning!
-
+    console.warn('这是一个警告!')
     // Error :|
+    console.error('这是一个错误!')
 
     // Info
+    console.info('这是一个信息!')
 
     // Testing
+    //断言
+    console.assert(1===2,'That is wrong!')
 
     // clearing
-
+    console.clear()
     // Viewing DOM Elements
-
+    console.log(p)
+    console.log([p])
+    console.dir(p)
     // Grouping together
-
+    dogs.forEach(dog => {
+      console.groupCollapsed(`${dog.name}`);
+      console.log(`This is ${dog.name}`);
+      console.log(`${dog.name} is ${dog.age} years old`);
+      console.log(`${dog.name} is ${dog.age * 7} dog years old`);
+      console.groupEnd(`${dog.name}`);
+    });
     // counting
+    console.count('hello');
+    console.count('hello');
+    console.count('hi');
+    console.count('hello');
+
+    console.count('hello');
+    console.count('hi');
 
     // timing
+    console.time('fetching data');
+    fetch('https://api.github.com/users/wesbos')
+            .then(data => data.json())
+            .then(data => {
+              console.timeEnd('fetching data');
+              console.log(data);
+            });
 
+    console.table(dogs);
   </script>
 </body>
 </html>

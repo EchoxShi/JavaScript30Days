@@ -43,6 +43,7 @@
   </div>
 
   <script>
+<!--    这个就是防抖函数-->
     function debounce(func, wait = 20, immediate = true) {
       var timeout;
       return function() {
@@ -57,6 +58,51 @@
         if (callNow) func.apply(context, args);
       };
     }
+
+  //---------------------------------开始----------------------------------
+    const images = document.querySelectorAll('.slide-in');
+    function checkSlide(e) {
+      console.log('调用了这个函数');
+      //能看到图像一半时显示图像
+      //图像底部移除视口时，图片消失
+      //使用activate 类控制
+
+      images.forEach(image => {
+        // console.log(window.scrollY);
+        // console.log(window.innerHeight);
+        // console.log(image.offsetTop);
+        //滚动的高度加上window的高度，如果大于文档顶部到图片中心的高度，则显示
+        //scrollY是滚动上去看不到的高度
+        //offsetTop是图片相对于文档顶部的高度
+
+        const scrolled = window.scrollY + window.innerHeight;
+        const imageHalf = image.offsetTop + image.height/2;
+        const iamgeBottom = image.offsetTop + image.height;
+
+        // let isHalfShown = false;
+        // let isNotScorllPast = false;
+        // if (scrolled >= imageHalf) {
+        //   isHalfShown = true;
+        // }
+        //
+        // if (window.scrollY < iamgeBottom) {
+        //   isNotScorllPast = true;
+        // }
+
+        const isHalfShown = scrolled >= imageHalf;
+        const isNotScorllPast = window.scrollY < iamgeBottom;
+        if (isHalfShown && isNotScorllPast) {
+          image.classList.add('active');
+        } else {
+          image.classList.remove('active');
+        }
+      })
+    }
+    //使用防抖函数  一遍调用了 15次
+    window.addEventListener('scroll',debounce(checkSlide));
+    //不使用防抖函数  一遍调用了200次
+    // window.addEventListener('scroll',checkSlide);
+
 
   </script>
 

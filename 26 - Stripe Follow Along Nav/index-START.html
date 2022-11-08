@@ -220,6 +220,39 @@
 </style>
 
 <script>
+   const navList = document.querySelectorAll('.cool > li');
+   const background = document.querySelector('.dropdownBackground');
+   const nav = document.querySelector('.top');
+
+   //效果是要先出背景再出内容，所以两个分开加，用了一个定时器，
+   // 但是滑的快的时候定时器会乱，加上了active还没有加上背景，所以加个判断，当确定有背景了再加内容。
+   function handleEnter () {
+     console.log('enter');
+     this.classList.add('trigger-enter');//加背景
+     const that = this;
+     setTimeout(() => {
+       if (this.classList.contains('trigger-enter')){
+         that.classList.add('trigger-enter-active')//加内容
+       }
+     },150);
+     background.classList.add('open');
+     // TODO 不知道这里为什么不能从document 上取
+     const dropdownRect = this.querySelector('.dropdown').getBoundingClientRect();
+     const navRect = nav.getBoundingClientRect();
+     background.style.width = `${dropdownRect.width}px`;
+     background.style.height = `${dropdownRect.height}px`;
+     background.style.transform = `translate(${dropdownRect.left-navRect.left}px,${dropdownRect.top-navRect.top}px)`;
+
+   }
+   function handleleave () {
+     console.log('leave');
+     this.classList.remove('trigger-enter','trigger-enter-active');
+     background.classList.remove('open');
+
+
+   }
+   navList.forEach(li => li.addEventListener('mouseenter',handleEnter));
+   navList.forEach(li => li.addEventListener('mouseleave',handleleave));
 </script>
 
 </body>
